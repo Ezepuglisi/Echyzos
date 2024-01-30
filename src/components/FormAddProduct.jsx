@@ -48,20 +48,30 @@ const FormAddProduct = ({ tags }) => {
 
         setIsLoading(true)
 
+        const tagsForConnect = clickedTags.map((el) => {
+            return {id: el.id}
+        })
+
         const newObject = {
             title: articulo,
             price: Number(precio),
-            img: [''],
+            imgs: images,
             sizes: clickedButtons,
-            tags: clickedTags,
-            units: unidades || null
+            tags: tagsForConnect,
+            units: unidades || null,
+            is_promoted:false
         }
 
         console.log(newObject)
 
+
         const result = await addProduct(newObject)
 
-        if (result.error) return setError(true)
+        if (result.error) {
+            console.log(result)
+            setIsLoading(false)
+            return setError(true)
+        }
 
         setIsLoading(false)
         setIsSent(true)

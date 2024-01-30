@@ -14,7 +14,7 @@ const AddProduct = async () => {
 
   return (
     <div className='w-full h-full flex items-center justify-center'>
-    <FormAddProduct tags={tags} />
+      <FormAddProduct tags={tags} />
     </div>
   )
 }

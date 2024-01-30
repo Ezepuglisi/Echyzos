@@ -60,9 +60,9 @@ const AdminProductsContainer = ({ data }) => {
               productsDb.map((product, index) => {
                 return (
                   <div key={index} className='bg-white rounded-md p-2 min-w-[150px] flex items-start flex-col'>
-                    <p>{product.title}</p>
-                    <p>{product.price}$</p>
-                    <p>{product.units}</p>
+                    <p>Articulo: {product.title}</p>
+                    <p>Precio: {product.price} $</p>
+                    <p>Unidades: {product.units}</p>
                     <p>Talles:</p>
                     <div className='flex gap-2 m-2'>
                       {product.sizes.map((size, i) => {
@@ -72,12 +72,12 @@ const AdminProductsContainer = ({ data }) => {
                     <p>Tags:</p>
                     <div className='flex gap-2 m-2'>
                       {product.tags.map((tag, i) => {
-                        return <p key={i} className='p-2 rounded-md bg-[#eef4ee]'>{tag}</p>
+                        return <p key={i} className='p-2 rounded-md bg-[#eef4ee]'>{tag.name}</p>
                       })}
                     </div>
                     <p>Imagenes:</p>
                     <div className='flex gap-2 m-2'>
-                      {product.img.map((img, i) => {
+                      {product.imgs.map((img, i) => {
                         return <img key={i} src={img} width={80} />
                       })}
                     </div>

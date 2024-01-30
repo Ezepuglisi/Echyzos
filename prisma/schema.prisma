@@ -24,12 +24,12 @@ model User {
 model Product{
   id String @id @default(uuid()) @db.Uuid
   title String
-  sizes String
+  sizes String[]
   price Decimal
   units Int
   orders Order[]  // Relación uno a muchos con Order
   tags   Tag[]    // Relación muchos a muchos con Tag
-  imgs String
+  imgs String[]
   is_promoted Boolean
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
