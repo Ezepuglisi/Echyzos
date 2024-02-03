@@ -4,33 +4,10 @@ import Image from 'next/image'
 import { deleteProduct } from '@/actions/product'
 
 const AdminProductsContainer = ({ data }) => {
-  // const productsExample = [
-  //   {
-  //     id: 'b50d981aaa244942b9cb9434029c6910',
-  //     title: 'Articulo',
-  //     price: 8888,
-  //     img: ['https://i.ibb.co/zVK9GSv/DSC-0741-png.png', '', '', ''],
-  //     sizes: ['00', '0', '1', '2', '3'],
-  //     tags: ['Halloween', 'Patrios'],
-  //     units: '3'
-  //   }
-  // ]
+
 
   const [loading, setLoading] = useState(false)
   const [productsDb, setProductsDb] = useState(data)
-
-
-
-  /**
-   * {
-            title: articulo,
-            price: Number(precio),
-            img: [''],
-            sizes: clickedButtons,
-            tags: clickedTags,
-            units: unidades || null
-        }
-   */
 
 
   const handleDeleteProduct = async (id) => {
