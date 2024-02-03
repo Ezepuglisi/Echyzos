@@ -17,10 +17,6 @@ const ViewProducts = async () => {
       price: Number(product.price),
     };
   });
-  // const tags = await prisma.tag.findMany({})
-
-  // console.log(tags)
-  console.log(productsWithNumericPrices)
 
   return (
     <div className='w-full h-full flex items-center justify-center'>

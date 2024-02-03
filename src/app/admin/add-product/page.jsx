@@ -13,7 +13,7 @@ const AddProduct = async () => {
   // })
 
   return (
-    <div className='w-full min-h-full flex items-center justify-center'>
+    <div className='w-full py-[25px] flex items-center justify-center'>
       <FormAddProduct tags={tags} />
     </div>
   )

@@ -62,13 +62,10 @@ const FormAddProduct = ({ tags }) => {
             is_promoted:false
         }
 
-        console.log(newObject)
-
 
         const result = await addProduct(newObject)
 
         if (result.error) {
-            console.log(result)
             setIsLoading(false)
             return setError(true)
         }
@@ -175,7 +172,7 @@ const FormAddProduct = ({ tags }) => {
                                                 }))
                                         }}
                                     />
-                                    {errors.precio && <p className='text-red-600'>Esto debe ser un número</p>}
+                                    {errors.precio && <p className='text-red-600'>Esto debe ser un número. Recuerda NO ingresar el signo $</p>}
 
                                 </div>
                                 <div>

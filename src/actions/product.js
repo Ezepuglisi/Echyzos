@@ -3,8 +3,6 @@ import prisma from "@/libs/db"
 
 export const addProduct = async (product) => {
 
-    console.log(product)
-
     try{
         const result = await prisma.product.create({
             data:{
