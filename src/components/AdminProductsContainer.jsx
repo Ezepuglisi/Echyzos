@@ -53,9 +53,10 @@ const AdminProductsContainer = ({ data }) => {
                       })}
                     </div>
                     <p>Imagenes:</p>
-                    <div className='flex gap-2 m-2'>
+                    <div className='flex flex-col gap-2 m-2'>
                       {product.imgs.map((img, i) => {
-                        return <img key={i} src={img} width={80} />
+                       /*return <img key={i} src={img} width={80}  /> */
+                       return <p key={i}>{img}</p>
                       })}
                     </div>
                     <div className='flex w-full items-end justify-end'>

@@ -94,12 +94,6 @@ const FormAddProduct = ({ tags }) => {
         setIsSent(!isSent)
     }
 
-    useEffect(() => {
-
-        console.log(errors)
-
-    }, [errors])
-
     const handleInputFile = async (file) => {
         console.log(file);
 
