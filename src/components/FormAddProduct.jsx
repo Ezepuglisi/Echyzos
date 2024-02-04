@@ -58,7 +58,7 @@ const FormAddProduct = ({ tags }) => {
             imgs: images,
             sizes: clickedButtons,
             tags: tagsForConnect,
-            units: unidades || null,
+            units: Number(unidades) || null,
             is_promoted:false
         }
 
