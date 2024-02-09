@@ -1,13 +1,14 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
-import { deleteProduct } from '@/actions/product'
+import { deleteProduct, getProducts } from '@/actions/product'
 
 const AdminProductsContainer = ({ data }) => {
 
+  console.log(data)
 
-  const [loading, setLoading] = useState(false)
-  const [productsDb, setProductsDb] = useState(data)
+  const [loading, setLoading] = useState(true)
+  const [productsDb, setProductsDb] = useState([])
 
 
   const handleDeleteProduct = async (id) => {
@@ -26,8 +27,14 @@ const AdminProductsContainer = ({ data }) => {
 
   }
 
+  useEffect(() => {
+    setProductsDb(data)
+    setLoading(false)
+  }, [])
+
+
   return (
-    
+
     <div className='flex gap-2 justify-around'>
 
       {
@@ -57,12 +64,12 @@ const AdminProductsContainer = ({ data }) => {
                     </div>
                     <p className='font-bold'>Imagenes:</p>
                     <div className='flex flex-col gap-2 m-2'>
-                      {product.imgs.map((img, i) => {
-                       /*return <img key={i} src={img} width={80}  /> */
-                       return <a target='_blank' href={img} key={i}>Imagen {i}</a>
-                      })}
+                      {/* {product.imgs.map((img, i) => {
+                        return <a target='_blank' href={img} key={i}>Imagen {i}</a>
+                      })} */}
                     </div>
-                    <div className='flex w-full items-end justify-end'>
+                    <div className='flex w-full items-end justify-end gap-2'>
+                      <button className='bg-blue-600 text-white p-1 rounded-md disabled:cursor-not-allowed disabled:bg-blue-600/30' disabled>Editar</button>
                       <button onClick={() => handleDeleteProduct(product.id)} className='bg-red-600 text-white p-1 rounded-md'>Eliminar</button>
                     </div>
                   </div>

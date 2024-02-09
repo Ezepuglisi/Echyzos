@@ -6,23 +6,27 @@ import AdminProductsContainer from '@/components/AdminProductsContainer'
 const ViewProducts = async () => {
 
   const products = await prisma.product.findMany({
-    include:{
-      tags:true
+    include: {
+        productModels: true,
+        colors: {
+            include: {
+                color: true,
+                images: true
+            }
+        },
+        tags: true,
+        generalImages: true
     }
-  })
+});
 
-  const productsWithNumericPrices = products.map((product) => {
-    return {
-      ...product,
-      price: Number(product.price),
-    };
-  });
 
-  console.log(productsWithNumericPrices)
+  console.log(products)
+
+
 
   return (
     <div className='w-full h-full flex items-center justify-center'>
-      <AdminProductsContainer data={productsWithNumericPrices} />
+      <AdminProductsContainer data={products} />
     </div>
   )
 }

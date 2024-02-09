@@ -11,48 +11,104 @@ datasource db {
 }
 
 model User {
-  id      String   @id @default(uuid()) @db.Uuid
-  email   String   @unique
-  username String   @unique
-  password String
-  business String
-  orders  Order[]
+  id         String   @id @default(uuid()) @db.Uuid
+  email      String   @unique
+  username   String   @unique
+  password   String
+  business   String
+  orders     Order[]
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
 
-model Product{
-  id String @id @default(uuid()) @db.Uuid
-  title String
-  sizes String[]
-  price Decimal
-  units Int
-  orders Order[]  // Relación uno a muchos con Order
-  tags   Tag[]    // Relación muchos a muchos con Tag
-  imgs String[]
-  is_promoted Boolean
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
 
 model Order {
   id         String    @id @default(uuid()) @db.Uuid
   userId     String    @db.Uuid
   user       User      @relation(fields: [userId], references: [id])
-  products Product[] // Relación muchos a muchos con Product
+  products   Product[] // Relación muchos a muchos con Product
   total      Decimal
   status     String
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
 }
 
-model Tag {
+model Product {
+  id          String     @id @default(uuid()) @db.Uuid
+  title       String
+  description String
+  sizes       String[]
+  productModels ProductModel[]
+  units       Int
+  orders      Order[]
+  tags        Tag[]
+  colors      ProductColor[]
+  is_promoted Boolean
+  stock       Int
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  generalImages GeneralImage[]
+}
+
+model GeneralImage {
+  id          String     @id @default(uuid()) @db.Uuid
+  url         String
+  product     Product    @relation(fields: [productId], references: [id])
+  productId   String     @db.Uuid
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+
+model ProductModel {
+  id          String     @id @default(uuid()) @db.Uuid
+  product     Product    @relation(fields: [productId], references: [id])
+  productId   String     @db.Uuid
+  model       Model      @relation(fields: [modelId], references: [id])
+  modelId     String     @db.Uuid
+  price       Decimal
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model ProductColor {
+  id          String     @id @default(uuid()) @db.Uuid
+  product     Product    @relation(fields: [productId], references: [id])
+  productId   String     @db.Uuid
+  color       Color      @relation(fields: [colorId], references: [id])
+  colorId     String      @db.Uuid
+  images      Image[]    // Relación uno a muchos con Image
+}
+
+model Color {
   id         String    @id @default(uuid()) @db.Uuid
   name       String    @unique
-  products Product[] // Relación muchos a muchos con Product
+  productColors ProductColor[] // Relación uno a muchos con ProductColor
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
 }
 
+model Image {
+  id          String     @id @default(uuid()) @db.Uuid
+  url         String
+  productColor ProductColor? @relation(fields: [productColorId], references: [id])
+  productColorId String?    @db.Uuid
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
 
+model Tag {
+  id         String    @id @default(uuid()) @db.Uuid
+  name       String    @unique
+  products   Product[] // Relación muchos a muchos con Product
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+}
 
+model Model {
+  id          String     @id @default(uuid()) @db.Uuid
+  name        String
+  productModels ProductModel[] // Relación uno a muchos con ProductModel
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
