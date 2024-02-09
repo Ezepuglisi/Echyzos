@@ -246,7 +246,7 @@ const FormAddProduct = ({ tags, colores, modelos }) => {
                                         Modelo
                                     </label>
 
-                                    <div className='flex items-center mt-2 text-white'>
+                                    <div className='flex flex-wrap gap-1 items-center mt-2 text-white'>
                                         {
                                             modelos?.map((item, index) => {
                                                 return (
@@ -339,7 +339,7 @@ const FormAddProduct = ({ tags, colores, modelos }) => {
                                         Talles
                                     </label>
 
-                                    <div className='flex items-center mt-2 text-white'>
+                                    <div className='flex flex-wrap gap-1 items-center mt-2 text-white'>
                                         {
                                             talles.map((item, index) => {
                                                 return (
@@ -362,7 +362,7 @@ const FormAddProduct = ({ tags, colores, modelos }) => {
                                         Colores
                                     </label>
 
-                                    <div className='flex items-center mt-2 text-white'>
+                                    <div className='flex flex-wrap gap-1 items-center mt-2 text-white'>
                                         {
                                             colores?.map((item, index) => {
                                                 return (
