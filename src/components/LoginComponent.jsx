@@ -1,6 +1,13 @@
+"use client"
 import Link from "next/link"
+import { useState } from "react"
 
 const LoginComponent = () => {
+
+    const [loading, setLoading] = useState(false)
+    const [user, setUser] = useState(null)
+    const [password, setPassword] = useState("")
+
     return (
         <div className="bg-green-50/25 flex justify-center items-center h-screen">
             {/* 
@@ -18,14 +25,14 @@ const LoginComponent = () => {
                     */}
                     <div className="mb-4">
                         <label for="username" className="block text-gray-600">Usuario</label>
-                        <input type="text" id="username" name="username" className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-green-500" autocomplete="off" />
+                        <input type="text" id="username" name="username" className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-green-500" autocomplete="off" value={user || ""} onChange={(e)=> setUser(e.target.value)} />
                     </div>
                     {/*
                     <!-- Password Input -->
                     */}
                     <div className="mb-4">
                         <label for="password" className="block text-gray-600">Contraseña</label>
-                        <input type="password" id="password" name="password" className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-green-500" autocomplete="off" />
+                        <input type="password" id="password" name="password" className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-green-500" autocomplete="off" value={password} onChange={(e)=> setPassword(e.target.value)}/>
                     </div>
                     {/*<!-- Login Button -->*/}
                     <button type="submit" className="bg-green-600 hover:bg-green-700 text-white font-semibold rounded-md py-2 px-4 w-full">Iniciar sesión</button>
