@@ -8,9 +8,9 @@ const AddProduct = async () => {
   const colors = await prisma.color.findMany({})
   const models = await prisma.model.findMany({})
 
-  // const result = await prisma.tag.create({
+  // const result = await prisma.color.create({
   //   data:{
-  //     name:'Primavera'
+  //     name:'Turquesa'
   //   }
   // })
 
@@ -20,6 +20,7 @@ const AddProduct = async () => {
   //   }
   // })
 
+  // console.log(result)
 
 
   return (

@@ -368,9 +368,9 @@ const FormAddProduct = ({ tags, colores, modelos }) => {
                                                 return (
                                                     <button
                                                         key={index}
-                                                        className={`min-w-10 mr-2 p-1 border-2 rounded-md ${colors.some(el => el.id === item.id) && 'bg-yellow-100'} text-black cursor-pointer hover:bg-yellow-100/80`}
+                                                        className={`min-w-10 mr-2 p-1 border-2 rounded-md  text-black cursor-pointer hover:bg-yellow-100/80`}
                                                         onClick={() => handleClickColorsAndModels(item, setColors, colors)}
-                                                        style={{ borderColor: traductorColores(item?.name?.toLowerCase()) }}
+                                                        style={{ borderColor: traductorColores(item?.name?.toLowerCase()), background: colors.some(el => el.id === item.id) && traductorColores(item?.name?.toLowerCase()) }}
                                                     >
                                                         {item.name}
                                                     </button>

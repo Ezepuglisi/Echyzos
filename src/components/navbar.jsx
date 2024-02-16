@@ -21,8 +21,8 @@ const Navbar = () => {
             </div>
 
             <div className='flex items-center gap-2'>
-                    {/* <Link className='hover:bg-[#eef4ee] p-2 rounded-md' href={'/admin/add-product'}>Agregar productos</Link>
-                    <Link className='hover:bg-[#eef4ee] p-2 rounded-md' href={'/admin/view-products'}>Lista de productos</Link> */}
+                    <Link className='hover:bg-[#eef4ee] p-2 rounded-md' href={'/admin/add-product'}>Agregar productos</Link>
+                    <Link className='hover:bg-[#eef4ee] p-2 rounded-md' href={'/admin/view-products'}>Lista de productos</Link>
             </div>
 
         </nav>
