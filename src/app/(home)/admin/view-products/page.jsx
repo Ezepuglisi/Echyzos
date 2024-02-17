@@ -7,25 +7,27 @@ const ViewProducts = async () => {
 
   const products = await prisma.product.findMany({
     include: {
-        productModels: true,
-        colors: {
-            include: {
-                color: true,
-                images: true
-            }
-        },
-        tags: true,
-        generalImages: true
+      productModels: true,
+      colors: {
+        include: {
+          color: true,
+          images: true
+        }
+      },
+      tags: true,
+      generalImages: true
     }
-});
+  });
 
 
-  console.log(products)
+  
+
+
 
 
 
   return (
-    <div className='w-full h-full flex items-center justify-center'>
+    <div className='w-full p-4 flex items-center justify-center'>
       <AdminProductsContainer data={products} />
     </div>
   )

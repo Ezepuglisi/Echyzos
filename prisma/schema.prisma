@@ -67,6 +67,7 @@ model ProductModel {
   productId   String     @db.Uuid
   model       Model      @relation(fields: [modelId], references: [id])
   modelId     String     @db.Uuid
+  modelName   String
   price       Decimal
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt

@@ -5,7 +5,7 @@ export default async function RootLayout({ children }) {
 
   return (
       <div>
-        <Navbar />
+        {/* <Navbar /> */}
         {children}
       </div>
   )

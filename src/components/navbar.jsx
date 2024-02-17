@@ -8,9 +8,6 @@ const Navbar = () => {
 
     const {user, login, logout} = userStore()
 
-    useEffect(() => {
-        console.log(user)
-    },[user])
 
 
     return (

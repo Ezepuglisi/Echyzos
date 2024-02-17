@@ -44,10 +44,9 @@ const FormAddProduct = ({ tags, colores, modelos }) => {
 
         setIsLoading(true);
 
-        console.log(colors, 'colors')
 
         const tagsForConnect = clickedTags.map(tag => ({ tagId: tag.id }));
-        const modelsForConnect = clickedModels.map(model => ({ modelId: model.id, price: model.price }));
+        const modelsForConnect = clickedModels.map(model => ({ modelId: model.id, price: model.price, modelName:model.name }));
         const colorsForConnect = colors.map(color => ({ colorId: color.id, images:color.images }));
         const generalImages = images.map(url => ({ url }));
 
@@ -66,10 +65,9 @@ const FormAddProduct = ({ tags, colores, modelos }) => {
         };
 
 
-        console.log(newObject)
-
         try {
             const result = await addProduct(newObject);
+            console.log(result, 'result')
             setIsLoading(false);
 
             if (result.error) {
@@ -144,16 +142,6 @@ const FormAddProduct = ({ tags, colores, modelos }) => {
     };
 
     const handleInputFile = async (file, destination) => {
-
-        
-        // if(destination.value !== 'Único'){
-        //     if(!destination.images){
-        //         destination.images = []
-        //     }
-        // }
-
-        console.log(destination)
-
 
 
         

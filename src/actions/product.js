@@ -1,42 +1,7 @@
 'use server'
 import prisma from "@/libs/db"
 
-// export const addProduct = async (product) => {
-
-//     try{
-//         const result = await prisma.product.create({
-//             data:{
-//                 title:product.title,
-//                 description:product.description || '',
-//                 price:product.price,
-//                 imgs:product.imgs,
-//                 sizes:product.sizes,
-//                 model:product.model || [],
-//                 units:product.units,
-//                 stock:product.stock,
-//                 is_promoted:product.is_promoted,
-//                 tags:{
-//                     connect:product.tags
-//                 },
-//                 Color:{
-//                     connect:product.color
-//                 }
-                
-//             }
-//         })
-
-//         return result
-//     }catch(error){
-//         console.log(error)
-//         return {
-//             error:'Hubo un error',
-//             mesage:JSON.stringify(error)
-//         }
-//     }
-// }
-
 export const addProduct = async (product) => {
-
     try {
         const result = await prisma.product.create({
             data: {
@@ -49,7 +14,8 @@ export const addProduct = async (product) => {
                 productModels: {
                     create: product.models && product.models.map(model => ({
                         model: { connect: { id: model.modelId } },
-                        price: model.price
+                        price: model.price,
+                        modelName:model.modelName
                     }))
                 },
                 colors: {
@@ -85,7 +51,6 @@ export const addProduct = async (product) => {
 
 export const deleteProduct = async (id) => {
 
-    console.log('deleteeeee')
 
     try{
         // Eliminar primero los ProductModel asociados al producto

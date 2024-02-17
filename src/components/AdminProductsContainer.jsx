@@ -5,8 +5,6 @@ import { deleteProduct, getProducts } from '@/actions/product'
 
 const AdminProductsContainer = ({ data }) => {
 
-  console.log(data)
-
   const [loading, setLoading] = useState(true)
   const [productsDb, setProductsDb] = useState([])
 
@@ -35,7 +33,7 @@ const AdminProductsContainer = ({ data }) => {
 
   return (
 
-    <div className='flex gap-2 justify-around'>
+    <div className='flex flex-col md:flex-row gap-2 flex-wrap justify-around'>
 
       {
         loading ?
@@ -48,7 +46,12 @@ const AdminProductsContainer = ({ data }) => {
                 return (
                   <div key={index} className='bg-white rounded-md p-2 min-w-[150px] flex items-start flex-col justify-around'>
                     <p> <span className='font-bold'>Articulo:</span> {product.title}</p>
-                    <p> <span className='font-bold'>Precio:</span> {product.price} $</p>
+                    <p> <span className='font-bold'>Descripcion:</span> {product.description}</p>
+                    <p className='font-bold'>Precios:</p>
+                    {/* <p> <span className='font-bold'>Precio:</span> {product.price} $</p> */}
+                    {product.productModels.map((model, i) => {
+                      return <p key={i}>{model.modelName}: ${model.price}</p>
+                    })}
                     <p> <span className='font-bold'>Unidades:</span> {product.units}</p>
                     <p> <span className='font-bold'>Talles:</span></p>
                     <div className='flex gap-2 m-2'>
@@ -67,6 +70,16 @@ const AdminProductsContainer = ({ data }) => {
                       {/* {product.imgs.map((img, i) => {
                         return <a target='_blank' href={img} key={i}>Imagen {i}</a>
                       })} */}
+                      {product.colors.map((element, i) => {
+                        return (
+                          <div key={i}>
+                            <p className='font-bold'>{element.color.name}</p>
+                            {element.images.map((img, indexImg) => {
+                              return <a key={indexImg} href={img.url}>Imagen {indexImg + 1}</a>
+                            })}
+                          </div>
+                        )
+                      })}
                     </div>
                     <div className='flex w-full items-end justify-end gap-2'>
                       <button className='bg-blue-600 text-white p-1 rounded-md disabled:cursor-not-allowed disabled:bg-blue-600/30' disabled>Editar</button>
