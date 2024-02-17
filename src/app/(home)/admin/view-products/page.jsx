@@ -19,15 +19,11 @@ const ViewProducts = async () => {
     }
   });
 
-
-  
-
-
-
+  const productColors = await prisma.productColor.findMany({})
 
 
   return (
-    <div className='w-full p-4 flex items-center justify-center'>
+    <div className='w-full'>
       <AdminProductsContainer data={products} />
     </div>
   )

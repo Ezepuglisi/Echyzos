@@ -2,12 +2,15 @@
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { deleteProduct, getProducts } from '@/actions/product'
+import { useRouter } from 'next/navigation'
 
 const AdminProductsContainer = ({ data }) => {
 
   const [loading, setLoading] = useState(true)
   const [productsDb, setProductsDb] = useState([])
+  const router = useRouter()
 
+  console.log(data)
 
   const handleDeleteProduct = async (id) => {
     setLoading(true)
@@ -33,7 +36,7 @@ const AdminProductsContainer = ({ data }) => {
 
   return (
 
-    <div className='flex flex-col md:flex-row gap-2 flex-wrap justify-around'>
+    <div className='flex flex-row justify-center flex-wrap p-4 gap-2 w-full'>
 
       {
         loading ?
@@ -44,7 +47,7 @@ const AdminProductsContainer = ({ data }) => {
             productsDb.length > 0 ?
               productsDb.map((product, index) => {
                 return (
-                  <div key={index} className='bg-white rounded-md p-2 min-w-[150px] flex items-start flex-col justify-around'>
+                  <div key={index} className='bg-white rounded-md p-2 w-full flex-2 max-w-[450px] flex items-start flex-col justify-around shadow-md'>
                     <p> <span className='font-bold'>Articulo:</span> {product.title}</p>
                     <p> <span className='font-bold'>Descripcion:</span> {product.description}</p>
                     <p className='font-bold'>Precios:</p>
@@ -54,19 +57,19 @@ const AdminProductsContainer = ({ data }) => {
                     })}
                     <p> <span className='font-bold'>Unidades:</span> {product.units}</p>
                     <p> <span className='font-bold'>Talles:</span></p>
-                    <div className='flex gap-2 m-2'>
+                    <div className='flex flex-wrap gap-2 m-2'>
                       {product.sizes.map((size, i) => {
                         return <div key={i} className='p-2 rounded-md bg-[#eef4ee]'>{size}</div>
                       })}
                     </div>
                     <p className='font-bold'>Tags:</p>
-                    <div className='flex gap-2 m-2'>
+                    <div className='flex flex-wrap gap-2 m-2'>
                       {product.tags.map((tag, i) => {
                         return <p key={i} className='p-2 rounded-md bg-[#eef4ee]'>{tag.name}</p>
                       })}
                     </div>
                     <p className='font-bold'>Imagenes:</p>
-                    <div className='flex flex-col gap-2 m-2'>
+                    <div className='flex flex-wrap flex-col gap-2 m-2'>
                       {/* {product.imgs.map((img, i) => {
                         return <a target='_blank' href={img} key={i}>Imagen {i}</a>
                       })} */}
@@ -82,7 +85,7 @@ const AdminProductsContainer = ({ data }) => {
                       })}
                     </div>
                     <div className='flex w-full items-end justify-end gap-2'>
-                      <button className='bg-blue-600 text-white p-1 rounded-md disabled:cursor-not-allowed disabled:bg-blue-600/30' disabled>Editar</button>
+                      <button className='bg-blue-600 text-white p-1 rounded-md disabled:cursor-not-allowed disabled:bg-blue-600/30' onClick={() => router.push(`/admin/edit-product/${product.id}`)}>Editar</button>
                       <button onClick={() => handleDeleteProduct(product.id)} className='bg-red-600 text-white p-1 rounded-md'>Eliminar</button>
                     </div>
                   </div>
