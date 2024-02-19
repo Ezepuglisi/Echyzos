@@ -10,8 +10,6 @@ const AdminProductsContainer = ({ data }) => {
   const [productsDb, setProductsDb] = useState([])
   const router = useRouter()
 
-  console.log(data)
-
   const handleDeleteProduct = async (id) => {
     setLoading(true)
     const result = await deleteProduct(id)

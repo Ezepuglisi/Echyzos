@@ -19,8 +19,6 @@ const ViewProducts = async () => {
     }
   });
 
-  const productColors = await prisma.productColor.findMany({})
-
 
   return (
     <div className='w-full'>

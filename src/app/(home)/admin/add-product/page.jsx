@@ -8,19 +8,20 @@ const AddProduct = async () => {
   const colors = await prisma.color.findMany({})
   const models = await prisma.model.findMany({})
 
-  // const result = await prisma.model.create({
+  // const result = await prisma.tag.create({
   //   data:{
-  //     name:'Borrame'
+  //     name:'Patrio'
   //   }
   // })
 
-  // const result = await prisma.color.delete({
+  // const result = await prisma.model.delete({
   //   where:{
-  //     name:'Fucsia'
+  //     id:'8468e481-12d7-4b9a-8877-773093093e36'
   //   }
   // })
 
   // console.log(result)
+
 
 
 
