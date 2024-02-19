@@ -1,26 +1,39 @@
-import React from 'react'
-import prisma from '@/libs/db'
+'use client'
+import { useEffect, useState } from 'react'
 import FormAddProduct from '@/components/FormAddProduct'
+import { getTags } from '@/actions/tags'
+import { getModels } from '@/actions/models'
+import { getColors } from '@/actions/colors'
 
-const AddProduct = async () => {
+const AddProduct = () => {
+  const [loading, setLoading] = useState(true)
 
-  const tags = await prisma.tag.findMany({})
-  const colors = await prisma.color.findMany({})
-  const models = await prisma.model.findMany({})
+  const [colors, setColors] = useState([])
+  const [models, setModels] = useState([])
+  const [tags, setTags] = useState([])
 
-  // const result = await prisma.tag.create({
-  //   data:{
-  //     name:'Patrio'
-  //   }
-  // })
+  useEffect(() => {
+    const getDataFromDB = async () => {
 
-  // const result = await prisma.model.delete({
-  //   where:{
-  //     id:'8468e481-12d7-4b9a-8877-773093093e36'
-  //   }
-  // })
+      const tags = await getTags()
+      const colors = await getColors()
+      const models = await getModels()
 
-  // console.log(result)
+      if(tags.error || colors.error || models.error){
+        setLoading(false)
+        return
+      }
+
+      setTags(tags)
+      setColors(colors)
+      setModels(models)
+
+      setLoading(false)
+
+    }
+
+    getDataFromDB()
+  }, [])
 
 
 
