@@ -42,7 +42,7 @@ const AdminProductsContainer = ({ data }) => {
           :
 
           (
-            productsDb.length > 0 ?
+            productsDb?.length > 0 ?
               productsDb.map((product, index) => {
                 return (
                   <div key={index} className='bg-white rounded-md p-2 w-full flex-2 max-w-[450px] flex items-start flex-col justify-around shadow-md'>
