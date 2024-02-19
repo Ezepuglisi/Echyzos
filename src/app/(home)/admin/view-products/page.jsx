@@ -5,9 +5,13 @@ import AdminProductsContainer from '@/components/AdminProductsContainer'
 
 const ViewProducts = async () => {
 
+  const url = process.env.URL
+
+  console.log(url)
+
   const getProductsFromServer = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/products', {
+      const response = await fetch(`${url}/api/products`, {
         method: 'GET'
       });
       const data = await response.json();
@@ -18,7 +22,6 @@ const ViewProducts = async () => {
     }
   };
   const products = await getProductsFromServer()
-console.log('nose')
 
   return (
     <div className='w-full'>
