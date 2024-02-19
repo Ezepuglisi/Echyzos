@@ -42,10 +42,11 @@ const ViewProducts = () => {
   return (
     <div className='w-full'>
       {
-        data.length > 0 ?
-        <AdminProductsContainer data={data} />
-        :
+        loading ?
         <p>loading</p>
+        :
+        <AdminProductsContainer data={data} />
+
       }
     </div>
   )

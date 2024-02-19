@@ -1,5 +1,7 @@
 'use client'
+import { getProducts } from "@/actions/product"
 import ProductContainer from "@/components/ProductContainer"
+import { useEffect, useState } from "react"
 // import prisma from "@/libs/db"
 
 
@@ -30,10 +32,11 @@ export default function Home() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-between p-10">
       {
-        data.length > 0 ?
-          <ProductContainer products={data} /> 
-          :
+        loading ?
           <p>loading</p>
+          :
+          <ProductContainer products={data} />
+
       }
     </div>
   )
