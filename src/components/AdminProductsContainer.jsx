@@ -50,7 +50,7 @@ const AdminProductsContainer = ({ data }) => {
                     <p> <span className='font-bold'>Descripcion:</span> {product.description}</p>
                     <p className='font-bold'>Precios:</p>
                     {/* <p> <span className='font-bold'>Precio:</span> {product.price} $</p> */}
-                    {product.productModels.map((model, i) => {
+                    {product.productModels?.map((model, i) => {
                       return <p key={i}>{model.modelName}: ${model.price}</p>
                     })}
                     <p> <span className='font-bold'>Unidades:</span> {product.units}</p>
@@ -62,7 +62,7 @@ const AdminProductsContainer = ({ data }) => {
                     </div>
                     <p className='font-bold'>Tags:</p>
                     <div className='flex flex-wrap gap-2 m-2'>
-                      {product.tags.map((tag, i) => {
+                      {product.tags?.map((tag, i) => {
                         return <p key={i} className='p-2 rounded-md bg-[#eef4ee]'>{tag.name}</p>
                       })}
                     </div>
@@ -71,7 +71,7 @@ const AdminProductsContainer = ({ data }) => {
                       {/* {product.imgs.map((img, i) => {
                         return <a target='_blank' href={img} key={i}>Imagen {i}</a>
                       })} */}
-                      {product.colors.map((element, i) => {
+                      {product.colors?.map((element, i) => {
                         return (
                           <div key={i}>
                             <p className='font-bold'>{element.color.name}</p>
