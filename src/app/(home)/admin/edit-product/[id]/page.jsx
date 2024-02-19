@@ -5,7 +5,7 @@ import { getTags } from "@/actions/tags"
 import FormAddProduct from "@/components/FormAddProduct"
 import { useEffect, useState } from "react"
 
-const editProductPage =() => {
+const EditProductPage =() => {
   const [loading, setLoading] = useState(true)
 
   const [colors, setColors] = useState([])
@@ -46,4 +46,4 @@ const editProductPage =() => {
   )
 }
 
-export default editProductPage
+export default EditProductPage
