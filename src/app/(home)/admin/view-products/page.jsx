@@ -1,31 +1,52 @@
-import React from 'react'
-import prisma from '@/libs/db'
+'use client'
+import { getProducts } from '@/actions/product'
 import AdminProductsContainer from '@/components/AdminProductsContainer'
+import { useEffect, useState } from 'react'
 
 
-const ViewProducts = async () => {
+const ViewProducts = () => {
 
-  const url = process.env.URL
+  // const products = await prisma.product.findMany({
+  //   include: {
+  //     productModels: true,
+  //     colors: {
+  //       include: {
+  //         color: true,
+  //         images: true
+  //       }
+  //     },
+  //     tags: true,
+  //     generalImages: true
+  //   }
+  // })
+  const [loading, setLoading] = useState(true)
+  const [data, setData] = useState([])
 
-  console.log(url)
+  useEffect(() => {
+    const getProductsFromDB = async () => {
+      const result = await getProducts()
 
-  const getProductsFromServer = async () => {
-    try {
-      const response = await fetch(`${url}/api/products`, {
-        method: 'GET'
-      });
-      const data = await response.json();
-      return data.result;
-    } catch (error) {
-      console.error('Error fetching products:', error);
-      return null; // O manejar el error de alguna otra manera
+      if(result.error){
+        setLoading(false)
+        return
+      }
+
+      setData(result)
+      setLoading(false)
+
     }
-  };
-  const products = await getProductsFromServer()
+
+    getProductsFromDB()
+  }, [])
 
   return (
     <div className='w-full'>
-      <AdminProductsContainer data={products} />
+      {
+        data.length > 0 ?
+        <AdminProductsContainer data={data} />
+        :
+        <p>loading</p>
+      }
     </div>
   )
 }

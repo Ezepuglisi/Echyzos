@@ -88,7 +88,26 @@ export const deleteProduct = async (id) => {
 }
 
 export const getProducts = async () => {
+    try {
+        const products = await prisma.product.findMany({
+            include: {
+                productModels: true,
+                colors: {
+                    include: {
+                        color: true,
+                        images: true
+                    }
+                },
+                tags: true,
+                generalImages: true
+            }
+        })
 
+        return products
+    }catch(error){
+        console.log(error)
+        return {error:true}
+    }
 }
 
 export const getProduct = async (id) => {

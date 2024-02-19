@@ -1,5 +1,5 @@
 import ProductContainer from "@/components/ProductContainer"
-import prisma from "@/libs/db"
+// import prisma from "@/libs/db"
 
 
 export default async function Home() {
@@ -17,6 +17,8 @@ export default async function Home() {
       generalImages: true
     }
   })
+
+  console.log(products)
 
   
   return (
