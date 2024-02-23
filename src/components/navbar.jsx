@@ -1,17 +1,33 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { MdOutlineClose, MdMenu, MdLogin, MdLogout, MdCart, MdOutlineShoppingCart, MdSearch } from "react-icons/md";
+import { getTags } from '@/actions/tags';
+import Filter from './Filter';
 
-const navigation = [
-    { name: 'Home', href: '/' },
-    { name: 'About', href: '/about' },
-    { name: 'Services', href: '/services' },
-    { name: 'Contact', href: '/contact' },
-];
+// const navigation = [
+//     { name: 'Home', href: '/' },
+//     { name: 'About', href: '/about' },
+//     { name: 'Services', href: '/services' },
+//     { name: 'Contact', href: '/contact' },
+// ];
 
 const NavBar = () => {
+
+    const [tags, setTags] = useState([])
+
     const [isOpen, setIsOpen] = useState(false);
+
+
+    useEffect(() => {
+
+        const getTagsFromDb = async () => {
+            const result = await getTags()
+            setTags(result)
+        }
+
+        getTagsFromDb()
+    }, [])
 
     return (
         <nav className="bg-white">
@@ -53,6 +69,9 @@ const NavBar = () => {
                     </div>
                 </div>
             </div>
+            {
+                tags.length > 0 && <Filter data={tags} />
+            }
 
             {isOpen && (
                 <div className="md:hidden shadow-md">
@@ -62,14 +81,22 @@ const NavBar = () => {
                                 {item.name}
                             </Link>
                         ))} */}
-                        <div className='flex gap-4 items-center py-1'>
+                                                {
+                            tags?.map((tag) => {
+                                return <div key={tag.id} className='flex gap-4 items-center py-1 hover:bg-green-200 cursor-pointer rounded-md px-2 py-1'>
+                                    <p>{tag.name}</p>
+                                    </div>
+                            })
+                        }
+                        <div className='flex gap-4 items-center py-1 hover:bg-green-200 cursor-pointer rounded-md'>
                             <MdLogin />
                             <p>Iniciar sesion</p>
                         </div>
-                        <div className='flex gap-4 items-center py-1'>
+                        <div className='flex gap-4 items-center py-1 hover:bg-green-200 cursor-pointer rounded-md'>
                             <MdOutlineShoppingCart />
                             <p>Carrito</p>
                         </div>
+
 
                     </div>
                 </div>

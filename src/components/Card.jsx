@@ -1,12 +1,14 @@
 'use client'
 import { traductorColores } from '@/utils/utils'
+import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
 const Card = ({ props }) => {
 
-    const { title, description, productModels, colors } = props
+    const { title, description, productModels, colors, id } = props
     const [priceToDisplay, setPriceToDisplay] = useState()
     const [imgToDisplay, setImgToDisplay] = useState(null)
+    const router = useRouter()
 
 
     useEffect(() => {
@@ -16,8 +18,7 @@ const Card = ({ props }) => {
         }, Infinity);
 
         setPriceToDisplay(lowestPrice)
-
-        console.log(colors, 'colors')
+        
         if(colors){
             setImgToDisplay(colors[0]?.images[0]?.url)
         }
@@ -25,7 +26,7 @@ const Card = ({ props }) => {
 
 
     return (
-        <div className="relative flex max-w-96 w-full max-h-[400px] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
+        <div className="relative flex max-w-96 w-full max-h-[400px] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md cursor-pointer" onClick={() => router.push(`/product/${id}`)}>
             <div className="relative h-96 overflow-hidden rounded-t-xl bg-white text-gray-700 bg-contain bg-no-repeat bg-center"
                 style={{ backgroundImage: `url("${imgToDisplay || '/no-image.jpg'}")`  }}
             >
