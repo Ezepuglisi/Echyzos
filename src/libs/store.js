@@ -32,7 +32,18 @@ export const userStore = create(
 
 export const productStore = create((set) => ({
   productsDb: [],
+  productsFiltered:[],
+  filtro:'',
   setProductsDb: (data) => {
-    set([...productsDb, data])
+    set((state) => ({...state, productsDb: data }))
+  },
+  setProducsFiltered:(data) => {
+    set((state) => ({...state, productsFiltered: data}))
+  },
+  setFiltro:(data) => {
+    set((state) => ({...state, filtro:data}))
   }
+  // setProductsDbFiltered: (data)=> {
+  //   set(data)
+  // }
 }))

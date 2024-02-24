@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { MdOutlineClose, MdMenu, MdLogin, MdLogout, MdCart, MdOutlineShoppingCart, MdSearch } from "react-icons/md";
 import { getTags } from '@/actions/tags';
 import Filter from './Filter';
+import { productStore } from '@/libs/store';
+import { useRouter } from 'next/navigation';
 
 // const navigation = [
 //     { name: 'Home', href: '/' },
@@ -18,6 +20,10 @@ const NavBar = () => {
 
     const [isOpen, setIsOpen] = useState(false);
 
+    const {productsDb, setProductsDb, setProducsFiltered, productsFiltered, setFiltro} = productStore()
+
+    const router = useRouter()
+
 
     useEffect(() => {
 
@@ -29,6 +35,26 @@ const NavBar = () => {
         getTagsFromDb()
     }, [])
 
+
+
+    const handleFilter = (value) => {
+        setFiltro('')
+        const filtered = productsDb.filter(e => e.title.toUpperCase().includes(value.toUpperCase()))
+
+        setProducsFiltered(filtered)
+    }
+
+    const handleFilterBytag = (tagId) => {
+
+        const filtered = productsDb.filter((disfraz) => {
+            return disfraz.tags.find(e => e.id === tagId)
+        })
+
+        setProducsFiltered(filtered)
+    }
+
+
+
     return (
         <nav className="bg-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -39,7 +65,7 @@ const NavBar = () => {
                         </Link>
                     </div>
                     <div className='flex gap-1'>
-                        <input className='border rounded-md text-xs px-2' placeholder='Busca en el catalogo...' />
+                        <input className='border rounded-md text-xs px-2' placeholder='Busca en el catalogo...' onChange={((e) => handleFilter(e.target.value))} />
                         <button className='bg-green-200 p-1 rounded-md'>
                             <MdSearch />
                         </button>
@@ -83,7 +109,7 @@ const NavBar = () => {
                         ))} */}
                                                 {
                             tags?.map((tag) => {
-                                return <div key={tag.id} className='flex gap-4 items-center py-1 hover:bg-green-200 cursor-pointer rounded-md px-2 py-1'>
+                                return <div key={tag.id} className='flex gap-4 items-center py-1 hover:bg-green-200 cursor-pointer rounded-md px-2 py-1 transition-all' onClick={() => handleFilterBytag(tag.id)}>
                                     <p>{tag.name}</p>
                                     </div>
                             })
