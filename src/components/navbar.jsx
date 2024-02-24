@@ -5,7 +5,8 @@ import { MdOutlineClose, MdMenu, MdLogin, MdLogout, MdCart, MdOutlineShoppingCar
 import { getTags } from '@/actions/tags';
 import Filter from './Filter';
 import { productStore } from '@/libs/store';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { FaHatWizard } from "react-icons/fa6";
 
 // const navigation = [
 //     { name: 'Home', href: '/' },
@@ -20,9 +21,11 @@ const NavBar = () => {
 
     const [isOpen, setIsOpen] = useState(false);
 
-    const {productsDb, setProductsDb, setProducsFiltered, productsFiltered, setFiltro} = productStore()
+    const { productsDb, setProductsDb, setProducsFiltered, productsFiltered, setFiltro, setLoading } = productStore()
 
     const router = useRouter()
+
+    const pathName = usePathname()
 
 
     useEffect(() => {
@@ -33,11 +36,14 @@ const NavBar = () => {
         }
 
         getTagsFromDb()
+
+        console.log(pathName, 'rroooouter')
     }, [])
 
 
 
     const handleFilter = (value) => {
+        setLoading(true)
         setFiltro('')
         const filtered = productsDb.filter(e => e.title.toUpperCase().includes(value.toUpperCase()))
 
@@ -45,7 +51,7 @@ const NavBar = () => {
     }
 
     const handleFilterBytag = (tagId) => {
-
+        setLoading(true)
         const filtered = productsDb.filter((disfraz) => {
             return disfraz.tags.find(e => e.id === tagId)
         })
@@ -71,13 +77,17 @@ const NavBar = () => {
                         </button>
                     </div>
                     <div className="hidden md:flex gap-4">
-                        <div className='flex gap-1 items-center py-1'>
+                        <div className='flex gap-1 items-center py-1  hover:bg-green-200 cursor-pointer rounded-md px-2 py-1 transition-all' onClick={()=> router.push('/login')}>
                             <MdLogin />
                             <p>Iniciar sesion</p>
                         </div>
-                        <div className='flex gap-1 items-center py-1'>
+                        <div className='flex gap-1 items-center py-1  hover:bg-green-200 cursor-pointer rounded-md px-2 py-1 transition-all' onClick={()=> router.push('/disfraces')}>
+                            <FaHatWizard />
+                            <p>Disfraces</p>
+                        </div>
+                        <div className='flex gap-1 items-center py-1  hover:bg-green-200 cursor-pointer rounded-md px-2 py-1 transition-all' onClick={()=> router.push('/pedido')}>
                             <MdOutlineShoppingCart />
-                            <p>Carrito</p>
+                            <p>Mi pedido</p>
                         </div>
                     </div>
                     <div className="-mr-2 flex md:hidden">
@@ -96,7 +106,7 @@ const NavBar = () => {
                 </div>
             </div>
             {
-                tags.length > 0 && <Filter data={tags} />
+                tags.length > 0 && pathName.includes('disfraces') && <Filter data={tags} />
             }
 
             {isOpen && (
@@ -107,20 +117,24 @@ const NavBar = () => {
                                 {item.name}
                             </Link>
                         ))} */}
-                                                {
-                            tags?.map((tag) => {
+                        {
+                            pathName.includes('disfraces') && tags?.map((tag) => {
                                 return <div key={tag.id} className='flex gap-4 items-center py-1 hover:bg-green-200 cursor-pointer rounded-md px-2 py-1 transition-all' onClick={() => handleFilterBytag(tag.id)}>
                                     <p>{tag.name}</p>
-                                    </div>
+                                </div>
                             })
                         }
-                        <div className='flex gap-4 items-center py-1 hover:bg-green-200 cursor-pointer rounded-md'>
+                        <div className='flex gap-4 items-center py-1 hover:bg-green-200 cursor-pointer rounded-md' onClick={()=> router.push('/login')}>
                             <MdLogin />
                             <p>Iniciar sesion</p>
                         </div>
-                        <div className='flex gap-4 items-center py-1 hover:bg-green-200 cursor-pointer rounded-md'>
+                        <div className='flex gap-4 items-center py-1 hover:bg-green-200 cursor-pointer rounded-md'  onClick={()=> router.push('/disfraces')}>
+                        <FaHatWizard />
+                            <p>Disfraces</p>
+                        </div>
+                        <div className='flex gap-4 items-center py-1 hover:bg-green-200 cursor-pointer rounded-md' onClick={()=> router.push('/pedido')}>
                             <MdOutlineShoppingCart />
-                            <p>Carrito</p>
+                            <p>Mi pedido</p>
                         </div>
 
 
